@@ -1,0 +1,36 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "rakubaku/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "rakubaku/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "rakubaku/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "rakubaku/multi-nginx",
+            "hostname": "worker",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort":80,
+                    "cointainerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+    ]
+}
